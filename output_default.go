@@ -38,12 +38,12 @@ func (o *defaultOutput) Verbosity() Verbosity {
 func (o *defaultOutput) printRecord(record Record) {
 	switch record.Level() {
 	case LevelDebug:
-		o.debugPrinter(record)
+		o.debugPrinter(record, o)
 	case LevelInfo:
-		o.infoPrinter(record)
+		o.infoPrinter(record, o)
 	case LevelWarning:
-		o.warningPrinter(record)
+		o.warningPrinter(record, o)
 	case LevelError:
-		o.errorPrinter(record)
+		o.errorPrinter(record, o)
 	}
 }

@@ -24,25 +24,25 @@ func New(opts ...options.Option) (Output, error) {
 	if err != nil {
 		return nil, fmt.Errorf("output initialization failed: %w", err)
 	}
-	optDebugPrinter, err := options.ReadOrDefault[PrintFunc](opt, optionDebugPrinterFunc, func(record Record) {
+	optDebugPrinter, err := options.ReadOrDefault[PrintFunc](opt, optionDebugPrinterFunc, func(record Record, _ Output) {
 		_, _ = os.Stdout.WriteString(fmt.Sprintf("<|DEBUG|> %s: %s\n", time.Now().Format(time.DateTime), record.Message()))
 	})
 	if err != nil {
 		return nil, fmt.Errorf("output initialization failed: %w", err)
 	}
-	optInfoPrinter, err := options.ReadOrDefault[PrintFunc](opt, optionInfoPrinterFunc, func(record Record) {
+	optInfoPrinter, err := options.ReadOrDefault[PrintFunc](opt, optionInfoPrinterFunc, func(record Record, _ Output) {
 		_, _ = os.Stdout.WriteString(fmt.Sprintf("<|INFO|> %s: %s\n", time.Now().Format(time.DateTime), record.Message()))
 	})
 	if err != nil {
 		return nil, fmt.Errorf("output initialization failed: %w", err)
 	}
-	optWarningPrinter, err := options.ReadOrDefault[PrintFunc](opt, optionWarningPrinterFunc, func(record Record) {
+	optWarningPrinter, err := options.ReadOrDefault[PrintFunc](opt, optionWarningPrinterFunc, func(record Record, _ Output) {
 		_, _ = os.Stdout.WriteString(fmt.Sprintf("<|WARNING|> %s: %s\n", time.Now().Format(time.DateTime), record.Message()))
 	})
 	if err != nil {
 		return nil, fmt.Errorf("output initialization failed: %w", err)
 	}
-	optErrorPrinter, err := options.ReadOrDefault[PrintFunc](opt, optionErrorPrinterFunc, func(record Record) {
+	optErrorPrinter, err := options.ReadOrDefault[PrintFunc](opt, optionErrorPrinterFunc, func(record Record, _ Output) {
 		_, _ = os.Stderr.WriteString(fmt.Sprintf("<|ERROR|> %s: %s\n", time.Now().Format(time.DateTime), record.Message()))
 	})
 	if err != nil {

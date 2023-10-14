@@ -30,16 +30,16 @@ func main() {
 
 	// Handlers for each output log function can be overridden when instantiating output.
 	o, err = output.New(
-		output.OptionDebugPrinter(func(record output.Record) {
+		output.OptionDebugPrinter(func(record output.Record, _ output.Output) {
 			// Everything here will be executed when `output.Debug` is called with this instance of output.
 		}),
-		output.OptionInfoPrinter(func(record output.Record) {
+		output.OptionInfoPrinter(func(record output.Record, _ output.Output) {
 			// Everything here will be executed when `output.Info` is called with this instance of output.
 		}),
-		output.OptionWarningPrinter(func(record output.Record) {
+		output.OptionWarningPrinter(func(record output.Record, _ output.Output) {
 			// Everything here will be executed when `output.Warning` is called with this instance of output.
 		}),
-		output.OptionErrorPrinter(func(record output.Record) {
+		output.OptionErrorPrinter(func(record output.Record, _ output.Output) {
 			// Everything here will be executed when `output.Error` is called with this instance of output.
 		}),
 	)

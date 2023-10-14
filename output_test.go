@@ -21,20 +21,20 @@ func TestOutput(t *testing.T) {
 		testOutput, err := New(
 			OptionLevel(expectedMessageLevel),
 			OptionVerbosity(VerbosityNormal),
-			OptionDebugPrinter(func(record Record) {
+			OptionDebugPrinter(func(record Record, _ Output) {
 				debugPrinted = true
 			}),
-			OptionInfoPrinter(func(record Record) {
+			OptionInfoPrinter(func(record Record, _ Output) {
 				infoPrinted = true
 			}),
-			OptionWarningPrinter(func(record Record) {
+			OptionWarningPrinter(func(record Record, _ Output) {
 				val, ok := record.Extra()["test_key"]
 				assert.True(t, ok)
 				assert.Equal(t, 9000, val)
 
 				warningPrinted = true
 			}),
-			OptionErrorPrinter(func(record Record) {
+			OptionErrorPrinter(func(record Record, _ Output) {
 				errorPrinted = true
 
 				assert.Equal(t, "Test error message", record.Message())
@@ -65,7 +65,7 @@ func TestOutput(t *testing.T) {
 		testOutput, err := New(
 			OptionLevel(LevelDebug),
 			OptionVerbosity(VerbosityHigh),
-			OptionDebugPrinter(func(record Record) {
+			OptionDebugPrinter(func(record Record, _ Output) {
 				switch record.Verbosity() {
 				case VerbosityNormal:
 					verbNormal = true
