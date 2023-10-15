@@ -3,6 +3,7 @@
 Easy to use output aggregator in form of basic log functions with level and verbosity.
 
 ## Usage
+
 ```go
 package main
 
@@ -67,3 +68,9 @@ Below table explains how verbosity levels interacts with each other.
 | Log "normal" | Record passed to output | Record passed to output | Record passed to output |
 |  Log "high"  |     Record ignored      | Record passed to output | Record passed to output |
 |  Log "all"   |     Record ignored      |     Record ignored      | Record passed to output |
+
+### Available Printers
+
+| Name           | Constructor               | Description                             |
+|----------------|---------------------------|-----------------------------------------|
+| Writer Printer | `output.NewWriterPrinter` | Sends all logs to provided `io.Writer`. |

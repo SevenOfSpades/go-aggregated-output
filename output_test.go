@@ -1,6 +1,7 @@
 package output
 
 import (
+	"bytes"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -87,5 +88,29 @@ func TestOutput(t *testing.T) {
 		assert.True(t, verbNormal)
 		assert.True(t, verbHigh)
 		assert.False(t, verbAll)
+	})
+	t.Run("it should use printer defined using Printer interface", func(t *testing.T) {
+		t.Parallel()
+
+		// GIVEN
+		testWriter := bytes.NewBuffer(nil)
+
+		testOutput, err := New(
+			OptionPrinter(NewWriterPrinter(testWriter)),
+		)
+		require.NoError(t, err)
+
+		// WHEN
+		Debug(testOutput, WithMessage("Test debug message"))
+		Info(testOutput, WithMessage("Test info message"))
+		Warning(testOutput, WithMessage("Test warning message"), WithExtra("test_key", 9000))
+		Error(testOutput, WithParametrizedMessage("Test %s message", "error"))
+
+		// THEN
+		result := testWriter.String()
+		assert.Contains(t, result, "Test debug message")
+		assert.Contains(t, result, "Test info message")
+		assert.Contains(t, result, "Test warning message")
+		assert.Contains(t, result, "Test error message")
 	})
 }

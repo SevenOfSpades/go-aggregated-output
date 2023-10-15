@@ -25,6 +25,16 @@ func OptionVerbosity(verbosity Verbosity) options.Option {
 	}
 }
 
+// OptionPrinter sets all handlers using struct compatible with Printer interface.
+func OptionPrinter(printer Printer) options.Option {
+	return func(o options.Options) {
+		options.WriteOrPanic[PrintFunc](o, optionDebugPrinterFunc, printer.Debug)
+		options.WriteOrPanic[PrintFunc](o, optionInfoPrinterFunc, printer.Info)
+		options.WriteOrPanic[PrintFunc](o, optionWarningPrinterFunc, printer.Warning)
+		options.WriteOrPanic[PrintFunc](o, optionErrorPrinterFunc, printer.Error)
+	}
+}
+
 // OptionDebugPrinter sets handler for debug output.
 func OptionDebugPrinter(printFunc PrintFunc) options.Option {
 	return func(o options.Options) {
