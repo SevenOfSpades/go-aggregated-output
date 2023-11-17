@@ -113,4 +113,14 @@ func TestOutput(t *testing.T) {
 		assert.Contains(t, result, "Test warning message")
 		assert.Contains(t, result, "Test error message")
 	})
+	t.Run("it should allow for output to be nil and ignore all logs", func(t *testing.T) {
+		t.Parallel()
+
+		assert.NotPanics(t, func() {
+			Debug(nil, WithMessage("Test debug message"))
+			Info(nil, WithMessage("Test info message"))
+			Warning(nil, WithMessage("Test warning message"), WithExtra("test_key", 9000))
+			Error(nil, WithParametrizedMessage("Test %s message", "error"))
+		})
+	})
 }
