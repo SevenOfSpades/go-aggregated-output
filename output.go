@@ -14,7 +14,7 @@ import (
 // * OptionVerbosity - set verbosity of output.
 // * Option{Debug|Info|Warning|Error}Printer - set corresponding handler for output level.
 func New(opts ...options.Option) (Output, error) {
-	opt := options.Resolve(opts...)
+	opt := options.Resolve(opts)
 
 	optLevel, err := options.ReadOrDefault[Level](opt, optionLevel, LevelDebug)
 	if err != nil {

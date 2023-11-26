@@ -13,52 +13,52 @@ const (
 
 // OptionLevel will overwrite default expected output (LevelDebug) with provided value.
 func OptionLevel(level Level) options.Option {
-	return func(o options.Options) {
-		options.WriteOrPanic[Level](o, optionLevel, level)
+	return func(r options.Resolver) {
+		options.WriteOrPanic[Level](r, optionLevel, level)
 	}
 }
 
 // OptionVerbosity will overwrite default verbosity of output (VerbosityAll) with provided value.
 func OptionVerbosity(verbosity Verbosity) options.Option {
-	return func(o options.Options) {
-		options.WriteOrPanic[Verbosity](o, optionVerbosity, verbosity)
+	return func(r options.Resolver) {
+		options.WriteOrPanic[Verbosity](r, optionVerbosity, verbosity)
 	}
 }
 
 // OptionPrinter sets all handlers using struct compatible with Printer interface.
 func OptionPrinter(printer Printer) options.Option {
-	return func(o options.Options) {
-		options.WriteOrPanic[PrintFunc](o, optionDebugPrinterFunc, printer.Debug)
-		options.WriteOrPanic[PrintFunc](o, optionInfoPrinterFunc, printer.Info)
-		options.WriteOrPanic[PrintFunc](o, optionWarningPrinterFunc, printer.Warning)
-		options.WriteOrPanic[PrintFunc](o, optionErrorPrinterFunc, printer.Error)
+	return func(r options.Resolver) {
+		options.WriteOrPanic[PrintFunc](r, optionDebugPrinterFunc, printer.Debug)
+		options.WriteOrPanic[PrintFunc](r, optionInfoPrinterFunc, printer.Info)
+		options.WriteOrPanic[PrintFunc](r, optionWarningPrinterFunc, printer.Warning)
+		options.WriteOrPanic[PrintFunc](r, optionErrorPrinterFunc, printer.Error)
 	}
 }
 
 // OptionDebugPrinter sets handler for debug output.
 func OptionDebugPrinter(printFunc PrintFunc) options.Option {
-	return func(o options.Options) {
-		options.WriteOrPanic[PrintFunc](o, optionDebugPrinterFunc, printFunc)
+	return func(r options.Resolver) {
+		options.WriteOrPanic[PrintFunc](r, optionDebugPrinterFunc, printFunc)
 	}
 }
 
 // OptionInfoPrinter sets handler for info output.
 func OptionInfoPrinter(printFunc PrintFunc) options.Option {
-	return func(o options.Options) {
-		options.WriteOrPanic[PrintFunc](o, optionInfoPrinterFunc, printFunc)
+	return func(r options.Resolver) {
+		options.WriteOrPanic[PrintFunc](r, optionInfoPrinterFunc, printFunc)
 	}
 }
 
 // OptionWarningPrinter sets handler for warning output.
 func OptionWarningPrinter(printFunc PrintFunc) options.Option {
-	return func(o options.Options) {
-		options.WriteOrPanic[PrintFunc](o, optionWarningPrinterFunc, printFunc)
+	return func(r options.Resolver) {
+		options.WriteOrPanic[PrintFunc](r, optionWarningPrinterFunc, printFunc)
 	}
 }
 
 // OptionErrorPrinter sets handler for error output.
 func OptionErrorPrinter(printFunc PrintFunc) options.Option {
-	return func(o options.Options) {
-		options.WriteOrPanic[PrintFunc](o, optionErrorPrinterFunc, printFunc)
+	return func(r options.Resolver) {
+		options.WriteOrPanic[PrintFunc](r, optionErrorPrinterFunc, printFunc)
 	}
 }
